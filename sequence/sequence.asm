@@ -1,4 +1,5 @@
-msg1: .asciiz "Enter a number.\n"
+.data
+msg1: .asciiz "Enter a number:\n"
 msg2: .asciiz "Reached 1\n"
 msg3: .asciiz "No. of steps taken is "
 sp: .asciiz " "
@@ -19,11 +20,11 @@ main:
 	or $t2, $0, $v0
 
 loop:
-	beg $t2, $t1, Exit
+	beq $t2, $t1, Exit
 	addi $t5, $t5, 1
 	andi $t3, $t2, 1
-	beg $t3, 0, even
-	beg $t3, 1, odd
+	beq $t3, 0, even
+	beq $t3, 1, odd
 
 	even:
 		div $t2, $t4
@@ -32,6 +33,7 @@ loop:
 		add $a0, $0, $t2
 		syscall
 		li $v0, 4
+		la $a0, lf
 		syscall
 		bne $t2, $0, loop
 
